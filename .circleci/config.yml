@@ -13,7 +13,7 @@ jobs:
             source `find /opt/ros -maxdepth 2 -name local_setup.bash | sort | head -1`
             mkdir -p src/grid_map && mv `find -maxdepth 1 -not -name . -not -name src` src/grid_map/
             rosdep update
-            rosdep install -y --ignore-src --from-paths src
+            # rosdep install -y --ignore-src --from-paths src
       - run:
           name: Debug Build
           command: |
