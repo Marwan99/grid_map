@@ -17,6 +17,7 @@ jobs:
       - run:
           name: Debug Build
           command: |
+            echo `find /opt/ros -maxdepth 2 -name local_setup.bash | sort | head -1`
             source `find /opt/ros -maxdepth 2 -name local_setup.bash | sort | head -1`
             colcon build --parallel-workers 1
       - run:
