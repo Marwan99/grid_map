@@ -17,7 +17,7 @@ namespace grid_map
 
 /*!
  * Iterator class to iterate trough the entire grid map.
- */
+*/
 class GridMapIterator
 {
 public:
