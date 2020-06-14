@@ -25,13 +25,13 @@ public:
    * Constructor.
    * @param gridMap the grid map to iterate on.
    */
-  explicit GridMapIterator(const grid_map::GridMap & gridMap);
+  GridMapIterator(const grid_map::GridMap & gridMap);
 
   /*!
    * Copy constructor.
    * @param other the object to copy.
    */
-  explicit GridMapIterator(const GridMapIterator * other);
+  GridMapIterator(const GridMapIterator * other);
 
   /*!
    * Assignment operator.
