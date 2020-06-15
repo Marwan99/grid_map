@@ -73,9 +73,9 @@ GridMapIterator & GridMapIterator::operator++()
 
 GridMapIterator GridMapIterator::end() const
 {
-  GridMapIterator res{this};
+  GridMapIterator res{static_cast<GridMapIterator*>(this)};
   res.linearIndex_ = linearSize_ - 1; 
-  return static_cast<GridMapIterator>(res);
+  return res;
 }
 
 bool GridMapIterator::isPastEnd() const
