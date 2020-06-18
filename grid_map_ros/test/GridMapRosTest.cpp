@@ -99,7 +99,7 @@ TEST(RosbagHandling, saveLoadWithTime)
 
   EXPECT_FALSE(gridMapOut.exists(layer));
 
-  if (!ros::Time::isValid()) ros::Time::init();
+  if (!ros::Time::isValid()) {ros::Time::init();}
   // TODO Do other time than now.
   gridMapIn.setTimestamp(ros::Time::now().toNSec());
 
@@ -151,7 +151,7 @@ TEST(OccupancyGridConversion, roundTrip)
   occupancyGrid.info.origin.orientation.w = 1.0;
   occupancyGrid.data.resize(occupancyGrid.info.width * occupancyGrid.info.height);
 
-  for (auto& cell : occupancyGrid.data) {
+  for (auto & cell : occupancyGrid.data) {
     cell = rand() % 102 - 1; // [-1, 100]
   }
 
@@ -168,16 +168,29 @@ TEST(OccupancyGridConversion, roundTrip)
   EXPECT_EQ(occupancyGrid.header.frame_id, occupancyGridResult.header.frame_id);
   EXPECT_EQ(occupancyGrid.info.width, occupancyGridResult.info.width);
   EXPECT_EQ(occupancyGrid.info.height, occupancyGridResult.info.height);
-  EXPECT_DOUBLE_EQ(occupancyGrid.info.origin.position.x, occupancyGridResult.info.origin.position.x);
-  EXPECT_DOUBLE_EQ(occupancyGrid.info.origin.position.x, occupancyGridResult.info.origin.position.x);
-  EXPECT_DOUBLE_EQ(occupancyGrid.info.origin.orientation.x, occupancyGridResult.info.origin.orientation.x);
-  EXPECT_DOUBLE_EQ(occupancyGrid.info.origin.orientation.y, occupancyGridResult.info.origin.orientation.y);
-  EXPECT_DOUBLE_EQ(occupancyGrid.info.origin.orientation.z, occupancyGridResult.info.origin.orientation.z);
-  EXPECT_DOUBLE_EQ(occupancyGrid.info.origin.orientation.w, occupancyGridResult.info.origin.orientation.w);
+  EXPECT_DOUBLE_EQ(
+    occupancyGrid.info.origin.position.x,
+    occupancyGridResult.info.origin.position.x);
+  EXPECT_DOUBLE_EQ(
+    occupancyGrid.info.origin.position.x,
+    occupancyGridResult.info.origin.position.x);
+  EXPECT_DOUBLE_EQ(
+    occupancyGrid.info.origin.orientation.x,
+    occupancyGridResult.info.origin.orientation.x);
+  EXPECT_DOUBLE_EQ(
+    occupancyGrid.info.origin.orientation.y,
+    occupancyGridResult.info.origin.orientation.y);
+  EXPECT_DOUBLE_EQ(
+    occupancyGrid.info.origin.orientation.z,
+    occupancyGridResult.info.origin.orientation.z);
+  EXPECT_DOUBLE_EQ(
+    occupancyGrid.info.origin.orientation.w,
+    occupancyGridResult.info.origin.orientation.w);
 
   // Check map data.
   for (std::vector<int8_t>::iterator iterator = occupancyGrid.data.begin();
-      iterator != occupancyGrid.data.end(); ++iterator) {
+    iterator != occupancyGrid.data.end(); ++iterator)
+  {
     size_t i = std::distance(occupancyGrid.data.begin(), iterator);
     EXPECT_EQ((int)*iterator, (int)occupancyGridResult.data[i]);
   }
@@ -194,8 +207,9 @@ TEST(ImageConversion, roundTripBGRA8)
 
   // Convert to image message.
   sensor_msgs::Image image;
-  GridMapRosConverter::toImage(mapIn, "layer", sensor_msgs::image_encodings::BGRA8, minValue,
-                               maxValue, image);
+  GridMapRosConverter::toImage(
+    mapIn, "layer", sensor_msgs::image_encodings::BGRA8, minValue,
+    maxValue, image);
 
   // Convert back to grid map.
   GridMap mapOut;
@@ -203,7 +217,8 @@ TEST(ImageConversion, roundTripBGRA8)
   GridMapRosConverter::addLayerFromImage(image, "layer", mapOut, minValue, maxValue);
 
   // Check data.
-  const float resolution = (maxValue - minValue) / (float) std::numeric_limits<unsigned char>::max();
+  const float resolution = (maxValue - minValue) /
+    (float) std::numeric_limits<unsigned char>::max();
   expectNear(mapIn["layer"], mapOut["layer"], resolution, "");
   EXPECT_TRUE((mapIn.getLength() == mapOut.getLength()).all());
   EXPECT_TRUE((mapIn.getSize() == mapOut.getSize()).all());
@@ -220,8 +235,9 @@ TEST(ImageConversion, roundTripMONO16)
 
   // Convert to image message.
   sensor_msgs::Image image;
-  GridMapRosConverter::toImage(mapIn, "layer", sensor_msgs::image_encodings::MONO16,
-                               minValue, maxValue, image);
+  GridMapRosConverter::toImage(
+    mapIn, "layer", sensor_msgs::image_encodings::MONO16,
+    minValue, maxValue, image);
 
   // Convert back to grid map.
   GridMap mapOut;
@@ -230,7 +246,8 @@ TEST(ImageConversion, roundTripMONO16)
 
   // Check data.
   // TODO Why is factor 300 necessary?
-  const float resolution = 300.0 * (maxValue - minValue) / (float) std::numeric_limits<unsigned short>::max();
+  const float resolution = 300.0 * (maxValue - minValue) /
+    (float) std::numeric_limits<unsigned short>::max();
   expectNear(mapIn["layer"], mapOut["layer"], resolution, "");
   EXPECT_EQ(mapIn.getTimestamp(), mapOut.getTimestamp());
   EXPECT_TRUE((mapIn.getLength() == mapOut.getLength()).all());
