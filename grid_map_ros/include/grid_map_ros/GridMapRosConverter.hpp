@@ -6,14 +6,11 @@
  *	 Institute: ETH Zurich, ANYbotics
  */
 
-#pragma once
+#ifndef GRID_MAP_ROS__GRIDMAPROSCONVERTER_HPP_
+#define GRID_MAP_ROS__GRIDMAPROSCONVERTER_HPP_
 
 #include <grid_map_core/grid_map_core.hpp>
 #include <grid_map_msgs/GridMap.h>
-
-// STL
-#include <vector>
-#include <unordered_map>
 
 // Eigen
 #include <Eigen/Core>
@@ -26,6 +23,11 @@
 #include <nav_msgs/OccupancyGrid.h>
 #include <nav_msgs/GridCells.h>
 #include <cv_bridge/cv_bridge.h>
+
+// STL
+#include <vector>
+#include <unordered_map>
+#include <string>
 
 namespace grid_map
 {
@@ -276,7 +278,7 @@ public:
   static bool loadFromBag(
     const std::string & pathToBag, const std::string & topic,
     grid_map::GridMap & gridMap);
-
 };
 
-} /* namespace */
+}  // namespace grid_map
+#endif  // GRID_MAP_ROS__GRIDMAPROSCONVERTER_HPP_

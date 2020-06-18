@@ -6,28 +6,29 @@
  *	 Institute: ETH Zurich, ANYbotics
  */
 
-#include "grid_map_core/GridMap.hpp"
-#include "grid_map_core/iterators/GridMapIterator.hpp"
-#include "grid_map_core/gtest_eigen.hpp"
-#include "grid_map_ros/GridMapRosConverter.hpp"
-#include "grid_map_msgs/GridMap.h"
-
 // gtest
 #include <gtest/gtest.h>
+#include <stdlib.h>
 
 // Eigen
 #include <Eigen/Core>
-
-// STD
-#include <string>
-#include <vector>
-#include <stdlib.h>
-#include <iterator>
 
 // ROS
 #include <nav_msgs/OccupancyGrid.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
+
+// STD
+#include <string>
+#include <vector>
+#include <iterator>
+#include <limits>
+
+#include "grid_map_core/GridMap.hpp"
+#include "grid_map_core/iterators/GridMapIterator.hpp"
+#include "grid_map_core/gtest_eigen.hpp"
+#include "grid_map_ros/GridMapRosConverter.hpp"
+#include "grid_map_msgs/GridMap.h"
 
 using namespace std;
 using namespace grid_map;
@@ -100,7 +101,7 @@ TEST(RosbagHandling, saveLoadWithTime)
   EXPECT_FALSE(gridMapOut.exists(layer));
 
   if (!ros::Time::isValid()) {ros::Time::init();}
-  // TODO Do other time than now.
+  // TODO(needs_assignment) Do other time than now.
   gridMapIn.setTimestamp(ros::Time::now().toNSec());
 
   EXPECT_TRUE(GridMapRosConverter::saveToBag(gridMapIn, pathToBag, topic));
@@ -152,7 +153,7 @@ TEST(OccupancyGridConversion, roundTrip)
   occupancyGrid.data.resize(occupancyGrid.info.width * occupancyGrid.info.height);
 
   for (auto & cell : occupancyGrid.data) {
-    cell = rand() % 102 - 1; // [-1, 100]
+    cell = rand_r() % 102 - 1;  // [-1, 100]
   }
 
   // Convert to grid map.
@@ -192,7 +193,7 @@ TEST(OccupancyGridConversion, roundTrip)
     iterator != occupancyGrid.data.end(); ++iterator)
   {
     size_t i = std::distance(occupancyGrid.data.begin(), iterator);
-    EXPECT_EQ((int)*iterator, (int)occupancyGridResult.data[i]);
+    EXPECT_EQ(static_cast<int>(*iterator), static_cast<int>(occupancyGridResult.data[i]));
   }
 }
 
@@ -218,7 +219,7 @@ TEST(ImageConversion, roundTripBGRA8)
 
   // Check data.
   const float resolution = (maxValue - minValue) /
-    (float) std::numeric_limits<unsigned char>::max();
+    static_cast<float>(std::numeric_limits<unsigned char>::max());
   expectNear(mapIn["layer"], mapOut["layer"], resolution, "");
   EXPECT_TRUE((mapIn.getLength() == mapOut.getLength()).all());
   EXPECT_TRUE((mapIn.getSize() == mapOut.getSize()).all());
@@ -245,9 +246,9 @@ TEST(ImageConversion, roundTripMONO16)
   GridMapRosConverter::addLayerFromImage(image, "layer", mapOut, minValue, maxValue);
 
   // Check data.
-  // TODO Why is factor 300 necessary?
+  // TODO(needs_assignment) Why is factor 300 necessary?
   const float resolution = 300.0 * (maxValue - minValue) /
-    (float) std::numeric_limits<unsigned short>::max();
+    static_cast<float>(std::numeric_limits<uint16_t>::max());
   expectNear(mapIn["layer"], mapOut["layer"], resolution, "");
   EXPECT_EQ(mapIn.getTimestamp(), mapOut.getTimestamp());
   EXPECT_TRUE((mapIn.getLength() == mapOut.getLength()).all());

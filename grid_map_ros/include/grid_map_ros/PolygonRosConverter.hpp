@@ -6,18 +6,19 @@
  *   Institute: ETH Zurich, ANYbotics
  */
 
-#pragma once
+#ifndef GRID_MAP_ROS__POLYGONROSCONVERTER_HPP_
+#define GRID_MAP_ROS__POLYGONROSCONVERTER_HPP_
 
 #include <grid_map_core/Polygon.hpp>
-
-// STL
-#include <string>
 
 // ROS
 #include <ros/time.h>
 #include <geometry_msgs/PolygonStamped.h>
 #include <visualization_msgs/Marker.h>
 #include <std_msgs/ColorRGBA.h>
+
+// STL
+#include <string>
 
 namespace grid_map
 {
@@ -67,4 +68,5 @@ public:
     const double zCoordinate, visualization_msgs::Marker & marker);
 };
 
-} /* namespace grid_map */
+}  // namespace grid_map
+#endif  // GRID_MAP_ROS__POLYGONROSCONVERTER_HPP_

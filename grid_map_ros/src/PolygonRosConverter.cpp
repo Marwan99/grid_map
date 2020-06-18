@@ -5,10 +5,13 @@
  *      Author: Péter Fankhauser
  *   Institute: ETH Zurich, ANYbotics
  */
-#include "grid_map_ros/PolygonRosConverter.hpp"
 
 // ROS
 #include <geometry_msgs/Point32.h>
+
+#include <vector>
+
+#include "grid_map_ros/PolygonRosConverter.hpp"
 
 namespace grid_map
 {
@@ -93,4 +96,4 @@ void PolygonRosConverter::toTriangleListMarker(
   }
 }
 
-} /* namespace grid_map */
+}  // namespace grid_map

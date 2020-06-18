@@ -1,7 +1,9 @@
-#pragma once
+#ifndef GRID_MAP_ROS__MESSAGE_TRAITS_HPP_
+#define GRID_MAP_ROS__MESSAGE_TRAITS_HPP_
 
 #include <grid_map_msgs/GridMap.h>
-#include <grid_map_msgs/GridMap.h>
+
+#include <string>
 
 namespace ros
 {
@@ -66,5 +68,6 @@ struct TimeStamp<grid_map_msgs::GridMap,
   }
 };
 
-}
-}
+}  // namespace message_traits
+}  // namespace ros
+#endif  // GRID_MAP_ROS__MESSAGE_TRAITS_HPP_

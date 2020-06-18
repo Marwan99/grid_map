@@ -6,7 +6,8 @@
  *   Institute: ETH Zurich, ANYbotics
  */
 
-#pragma once
+#ifndef GRID_MAP_ROS__GRIDMAPMSGHELPERS_HPP_
+#define GRID_MAP_ROS__GRIDMAPMSGHELPERS_HPP_
 
 // ROS
 #include <ros/ros.h>
@@ -16,6 +17,9 @@
 
 // Eigen
 #include <Eigen/Core>
+
+#include <map>
+#include <string>
 
 namespace grid_map
 {
@@ -123,7 +127,8 @@ template<typename EigenType_, typename MultiArrayMessageType_>
 bool multiArrayMessageCopyToMatrixEigen(const MultiArrayMessageType_ & m, EigenType_ & e)
 {
   if (e.IsRowMajor != isRowMajor(m)) {
-    ROS_ERROR("multiArrayMessageToMatrixEigen() failed because the storage order is not compatible.");
+    ROS_ERROR("multiArrayMessageToMatrixEigen() "
+    "failed because the storage order is not compatible.");
     return false;
   }
 
@@ -144,7 +149,8 @@ template<typename EigenType_, typename MultiArrayMessageType_>
 bool multiArrayMessageMapToMatrixEigen(MultiArrayMessageType_ & m, EigenType_ & e)
 {
   if (e.IsRowMajor != isRowMajor(m)) {
-    ROS_ERROR("multiArrayMessageToMatrixEigen() failed because the storage order is not compatible.");
+    ROS_ERROR("multiArrayMessageToMatrixEigen() "
+    "failed because the storage order is not compatible.");
     return false;
   }
 
@@ -153,4 +159,6 @@ bool multiArrayMessageMapToMatrixEigen(MultiArrayMessageType_ & m, EigenType_ & 
   return true;
 }
 
-} /* namespace */
+}  // namespace grid_map
+#endif  // GRID_MAP_ROS__GRIDMAPMSGHELPERS_HPP_
+
