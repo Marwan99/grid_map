@@ -12,10 +12,10 @@
 #include <grid_map_core/Polygon.hpp>
 
 // ROS
-#include <ros/time.h>
-#include <geometry_msgs/PolygonStamped.h>
-#include <visualization_msgs/Marker.h>
-#include <std_msgs/ColorRGBA.h>
+#include <rclcpp/time.hpp>
+#include <geometry_msgs/msg/polygon_stamped.hpp>
+#include <visualization_msgs/msg/marker.hpp>
+#include <std_msgs/msg/color_rgba.hpp>
 
 // STL
 #include <string>
@@ -42,7 +42,9 @@ public:
    * @param[in] polygon the polygon object.
    * @param[out] message the ROS PolygonStamped message to be populated.
    */
-  static void toMessage(const grid_map::Polygon & polygon, geometry_msgs::PolygonStamped & message);
+  static void toMessage(
+    const grid_map::Polygon & polygon,
+    geometry_msgs::msg::PolygonStamped & message);
 
   /*!
    * Converts a polygon object to a ROS line strip marker message.
@@ -53,8 +55,9 @@ public:
    * @param[out] marker the ROS marker message to be populated.
    */
   static void toLineMarker(
-    const grid_map::Polygon & polygon, const std_msgs::ColorRGBA & color, const double lineWidth,
-    const double zCoordinate, visualization_msgs::Marker & marker);
+    const grid_map::Polygon & polygon, const std_msgs::msg::ColorRGBA & color,
+    const double lineWidth,
+    const double zCoordinate, visualization_msgs::msg::Marker & marker);
 
   /*!
    * Converts a polygon object to a ROS triangle list marker message.
@@ -64,8 +67,8 @@ public:
    * @param[out] marker the ROS marker message to be populated.
    */
   static void toTriangleListMarker(
-    const grid_map::Polygon & polygon, const std_msgs::ColorRGBA & color,
-    const double zCoordinate, visualization_msgs::Marker & marker);
+    const grid_map::Polygon & polygon, const std_msgs::msg::ColorRGBA & color,
+    const double zCoordinate, visualization_msgs::msg::Marker & marker);
 };
 
 }  // namespace grid_map

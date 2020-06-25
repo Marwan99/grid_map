@@ -52,17 +52,17 @@ template<>
 struct TimeStamp<grid_map_msgs::GridMap,
   typename boost::enable_if<HasHeader<grid_map_msgs::GridMap>>::type>
 {
-  static ros::Time * pointer(grid_map_msgs::GridMap & m)
+  static rclcpp::Time * pointer(grid_map_msgs::GridMap & m)
   {
     return &m.info.header.stamp;
   }
 
-  static ros::Time const * pointer(const grid_map_msgs::GridMap & m)
+  static rclcpp::Time const * pointer(const grid_map_msgs::GridMap & m)
   {
     return &m.info.header.stamp;
   }
 
-  static ros::Time value(const grid_map_msgs::GridMap & m)
+  static rclcpp::Time value(const grid_map_msgs::GridMap & m)
   {
     return m.info.header.stamp;
   }
