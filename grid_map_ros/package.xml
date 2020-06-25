@@ -13,17 +13,18 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   <build_depend>grid_map_cmake_helpers</build_depend>
 
-  <depend>roscpp</depend>
+  <depend>rclcpp</depend>
   <depend>grid_map_core</depend>
   <depend>grid_map_msgs</depend>
   <depend>grid_map_cv</depend>
   <depend>sensor_msgs</depend>
-  <depend>nav_msgs</depend>
+  <depend>nav2_msgs</depend>
   <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>cv_bridge</depend>
-  <depend>rosbag</depend>
-  <depend>tf</depend>
+  <depend>rosbag2_cpp</depend>
+  <depend>rosbag2_converter_default_plugins</depend>
+  <depend>tf2</depend>
   <depend>visualization_msgs</depend>
 
   <test_depend>ament_lint_common</test_depend>
