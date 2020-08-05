@@ -76,7 +76,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE "SHELL:--param ggc-min-heapsize=3
 
 # Mark executables and/or libraries for installation
 install(
-  TARGETS ${filter_libs}
+  TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
